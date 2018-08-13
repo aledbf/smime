@@ -80,7 +80,7 @@ function encrypt(options) {
 
     const command = util.format(
       "openssl smime -noattr -encrypt -aes-256-cbc -outform PEM -binary %s",
-      options.keys
+      options.keys.join(" ")
     );
 
     console.log(`Encrypt ${command}`);
