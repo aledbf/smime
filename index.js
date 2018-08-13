@@ -46,6 +46,8 @@ function sign(options) {
       command += util.format(" -passin pass:%s", options.password);
     }
 
+    console.log(`Encrypt ${command}`);
+
     const args = command.split(" ");
     const child = spawn(args[0], args.splice(1));
 
@@ -53,6 +55,10 @@ function sign(options) {
 
     child.stdout.on("data", chunk => {
       der.push(chunk);
+    });
+
+    child.stderr.on("data", chunk => {
+      console.log(chunk);
     });
 
     child.on("close", code => {
