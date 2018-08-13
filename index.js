@@ -1,6 +1,6 @@
 const util = require("util");
 const spawn = require("child_process").spawn;
-const intoStream = require('into-stream');
+const intoStream = require("into-stream");
 
 // Expose methods.
 exports.sign = sign;
@@ -46,8 +46,6 @@ function sign(options) {
       command += util.format(" -passin pass:%s", options.password);
     }
 
-    console.log(`Encrypt ${command}`);
-
     const args = command.split(" ");
     const child = spawn(args[0], args.splice(1));
 
@@ -55,10 +53,6 @@ function sign(options) {
 
     child.stdout.on("data", chunk => {
       der.push(chunk);
-    });
-
-    child.stderr.on("data", chunk => {
-      console.log(chunk);
     });
 
     child.on("close", code => {
@@ -89,6 +83,8 @@ function encrypt(options) {
       options.keys
     );
 
+    console.log(`Encrypt ${command}`);
+
     const args = command.split(" ");
     const child = spawn(args[0], args.splice(1));
 
@@ -96,6 +92,10 @@ function encrypt(options) {
 
     child.stdout.on("data", chunk => {
       der += chunk;
+    });
+
+    child.stderr.on("data", chunk => {
+      console.log(chunk);
     });
 
     child.on("close", code => {
