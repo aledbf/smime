@@ -83,7 +83,7 @@ function encrypt(options) {
       options.keys.join(" ")
     );
 
-    console.log(`Encrypt ${command}`);
+    // console.log(`Encrypt ${command}`);
 
     const args = command.split(" ");
     const child = spawn(args[0], args.splice(1));
